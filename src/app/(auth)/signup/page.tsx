@@ -1,9 +1,35 @@
+"use client";
 import FrontendLayout from "@/components/layouts/frontend-layout";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import z from "zod";
+
+const SignUpSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters."),
+  email: z.email("Please enter a valid email address."),
+  password: z.string().min(6, "Password must be at least 6 characters long."),
+});
+
+type SignUpFormValues = z.infer<typeof SignUpSchema>;
 
 export default function SignupPage() {
+  const { register, handleSubmit } = useForm<SignUpFormValues>({
+    resolver: zodResolver(SignUpSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: SignUpFormValues) => {
+    console.log(data);
+  };
+
   return (
     <FrontendLayout>
       <section className="flex min-h-[70vh] items-center justify-center py-16">
@@ -18,26 +44,33 @@ export default function SignupPage() {
               Join us and start shopping your favorite styles.
             </p>
           </div>
-          <form className="space-y-5 mt-8">
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-8">
             <Input
               label="Full Name"
               placeholder="Enter your full name"
               type="text"
+              {...register("name")}
             />
             <Input
               label="Email Address"
               placeholder="Enter your email address"
               type="email"
+              {...register("email")}
             />
             <Input
               label="Password"
               placeholder="Create a password"
               type="text"
+              {...register("password")}
             />
 
-            <Button className="w-full">Create Account</Button>
+            <Button type="submit" className="w-full">
+              Create Account
+            </Button>
 
             <Button
+              type="button"
               variant="outline"
               className="w-full"
               leftIcon={<FcGoogle size={18} />}
@@ -45,6 +78,16 @@ export default function SignupPage() {
               Continue with Google
             </Button>
           </form>
+
+          <p className="mt-8 text-center text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link
+              className="font-semibold text-primary hover:underline"
+              href="/login"
+            >
+              Log in
+            </Link>
+          </p>
         </div>
       </section>
     </FrontendLayout>
