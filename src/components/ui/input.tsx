@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
+import { InputHTMLAttributes } from "react";
 
 // Custom Input component with all normal HTML input props
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 

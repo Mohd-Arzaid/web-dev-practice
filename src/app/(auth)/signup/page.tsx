@@ -1,6 +1,7 @@
 import FrontendLayout from "@/components/layouts/frontend-layout";
+import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
-
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignupPage() {
   return (
@@ -23,6 +24,26 @@ export default function SignupPage() {
               placeholder="Enter your full name"
               type="text"
             />
+            <Input
+              label="Email Address"
+              placeholder="Enter your email address"
+              type="email"
+            />
+            <Input
+              label="Password"
+              placeholder="Create a password"
+              type="text"
+            />
+
+            <Button className="w-full">Create Account</Button>
+
+            <Button
+              variant="outline"
+              className="w-full"
+              leftIcon={<FcGoogle size={18} />}
+            >
+              Continue with Google
+            </Button>
           </form>
         </div>
       </section>
