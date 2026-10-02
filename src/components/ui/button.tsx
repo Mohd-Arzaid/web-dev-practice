@@ -21,7 +21,7 @@ export default function Button({
   leftIcon,
   rightIcon,
   variant = "primary",
-  className = "",
+  className,
   ...props
 }: ButtonProps) {
   return (

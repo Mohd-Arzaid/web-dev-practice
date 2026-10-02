@@ -17,7 +17,11 @@ const SignUpSchema = z.object({
 type SignUpFormValues = z.infer<typeof SignUpSchema>;
 
 export default function SignupPage() {
-  const { register, handleSubmit } = useForm<SignUpFormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
       name: "",
@@ -27,6 +31,7 @@ export default function SignupPage() {
   });
 
   const onSubmit = (data: SignUpFormValues) => {
+    
     console.log(data);
   };
 
@@ -51,22 +56,25 @@ export default function SignupPage() {
               placeholder="Enter your full name"
               type="text"
               {...register("name")}
+              error={errors.name?.message}
             />
             <Input
               label="Email Address"
               placeholder="Enter your email address"
               type="email"
               {...register("email")}
+              error={errors.email?.message}
             />
             <Input
               label="Password"
               placeholder="Create a password"
               type="text"
               {...register("password")}
+              error={errors.password?.message}
             />
 
             <Button type="submit" className="w-full">
-              Create Account
+              {isSubmitting ? "Creating Account..." : "Create Account"}
             </Button>
 
             <Button
