@@ -31,7 +31,6 @@ export default function SignupPage() {
   });
 
   const onSubmit = (data: SignUpFormValues) => {
-    
     console.log(data);
   };
 
@@ -73,7 +72,7 @@ export default function SignupPage() {
               error={errors.password?.message}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={isSubmitting} className="w-full">
               {isSubmitting ? "Creating Account..." : "Create Account"}
             </Button>
 
